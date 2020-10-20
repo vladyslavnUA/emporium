@@ -3,7 +3,6 @@ const Pet = require('../models/pet');
 
 // PET ROUTES
 module.exports = (app) => {
-
   // INDEX PET => index.js
 
   // NEW PET
@@ -11,8 +10,23 @@ module.exports = (app) => {
     res.render('pets-new');
   });
 
+  // SEARCH PET
+  app.get('/search', (req, res) => {
+    term = new RegExp(req.query.term, 'i')
+
+    Pet.find({$or:[
+      {'name': term},
+      {'species': term}
+    ]}).exec((err, pets) => {
+      res.render('pets-index', { pets: pets });
+    })
+  });
+
   // CREATE PET
   app.post('/pets', (req, res) => {
+    term = new RegExp(req.query.term, 'i')
+
+    // Pet.find({'name': })
     var pet = new Pet(req.body);
 
     pet.save()
