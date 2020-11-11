@@ -30,17 +30,15 @@ module.exports = (app) => {
 
   // CREATE PET
   app.post('/pets', (req, res) => {
-    term = new RegExp(req.query.term, 'i')
-
-    // Pet.find({'name': })
     var pet = new Pet(req.body);
 
     pet.save()
       .then((pet) => {
-        res.redirect(`/pets/${pet._id}`);
+        res.send({ pet: pet });
       })
       .catch((err) => {
-        // Handle Errors
+        res.status(400).send(err.errors);
+        console.log('new error: ', err.errors);
       }) ;
   });
 
