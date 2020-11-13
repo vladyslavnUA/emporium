@@ -57,13 +57,23 @@ module.exports = (app) => {
       }
     })
   })
-  
+
   // SHOW PET
   app.get('/pets/:id', (req, res) => {
     Pet.findById(req.params.id).exec((err, pet) => {
       res.render('pets-show', { pet: pet });
     });
   });
+
+  
+  // PURCHASE
+
+  app.post('/pets/:id/purchase', (req,res) => {
+    console.log(`purchase body: ${req.body}`);
+  });
+
+
+
 
   // EDIT PET
   app.get('/pets/:id/edit', (req, res) => {
