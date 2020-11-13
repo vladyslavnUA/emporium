@@ -3,6 +3,7 @@ if (!process.env.PORT) {
   process.env.NODE_ENV = "dev"
 }
 
+
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -12,6 +13,8 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override')
 
 const app = express();
+
+app.locals.PUBLIC_STRIPE_API_KEY = process.env.PUBLIC_STRIPE_API_KEY
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/petes-pets',  { useNewUrlParser: true });
@@ -53,3 +56,4 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
+
